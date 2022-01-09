@@ -33,7 +33,6 @@ function preloadFiles(){
 
 async function requestListener (req, res) {
     let _url = url.parse(req.url, true);
-    console.log(_url)
     switch(_url.pathname){
         case "/":
             res.setHeader("Content-Type", "text/html");
