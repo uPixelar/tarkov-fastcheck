@@ -33,6 +33,7 @@ function preloadFiles(){
 
 async function requestListener (req, res) {
     let _url = url.parse(req.url, true);
+    console.log(_url)
     switch(_url.pathname){
         case "/":
             res.setHeader("Content-Type", "text/html");
@@ -51,9 +52,15 @@ async function requestListener (req, res) {
             break;
 
         default:
-            res.setHeader("Content-Type", "text/html");
-            res.writeHead(404);
-            res.end(Files.E404);
+            if(_url.pathname.startsWith("/wiki")){
+                res.setHeader("Content-Type", "text/html");
+                res.writeHead(200);
+                res.end(`<script>window.location.href="https://escapefromtarkov.fandom.com${_url.pathname}"</script>`);
+            }else{
+                res.setHeader("Content-Type", "text/html");
+                res.writeHead(404);
+                res.end(Files.E404);
+            }
             break;
     }
 }
