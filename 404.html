@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+</head>
+<body>
+    <h1>404 NOT FOUND</h1>
+    <h2>Hatalı url girdiniz, uygun url'ye yönlendiriliyorsunuz.(<span id="countdown">5</span>)</h2>
+    <script>
+        let i = 4;
+        let counter = document.getElementById("countdown");
+        setTimeout(cdown, 1000);
+        function cdown(){
+            counter.innerHTML = i--;
+            if(i == 0)
+                window.location.href = window.location.origin+window.location.search;
+            else
+                setTimeout(cdown, 1000);
+        }
+    </script>
+</body>
+</html>
