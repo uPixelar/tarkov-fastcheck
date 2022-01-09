@@ -1,3 +1,4 @@
+require('dotenv').config();
 var http = require("http");
 var url = require("url");
 const fs = require("fs").promises;
@@ -9,7 +10,7 @@ var Server;
 async function Main(){
     await preloadFiles();
     Server = http.createServer(requestListener);
-    Server.listen(8080);
+    Server.listen(process.env.PORT || 80);
 }
 
 function preloadFiles(){
