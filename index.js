@@ -68,11 +68,11 @@ function searchWord(word){
     return new Promise(callback => {
         word = word.toString();
         let query_text = word.replace(" ", "+");
-        axios.get(`https://escapefromtarkov.fandom.com/wiki/Special:Search?fulltext=1&query=${query_text}&scope=internal&contentType=&ns%5B0%5D=0#`).then(res => {
+        axios.get(`https://escapefromtarkov.fandom.com/wiki/Special:Search?query=${query_text}&scope=internal&navigationSearch=true`).then(res => {
             var body = res.data; 
             let start;
             let end;
-            for(start = body.indexOf('<h1 class="unified-search__result__header">'); body.slice(start-9, start) != '<a href="'; start++){}
+            for(start = body.indexOf('<h3 class="unified-search__result__header">'); body.slice(start-9, start) != '<a href="'; start++){}
             for(end = start; body.charAt(end) != '"'; end++){}
             var wiki_url = body.slice(start, end);
             axios.get(wiki_url).then((res) => {
