@@ -71,6 +71,10 @@ app.get("/item/:item", async (req, res) => {
 
 })
 
+app.get("/", async (req, res) => {
+    res.end(Files.index);
+})
+
 const getItemPage = (item) => {
     return new Promise(cb => {
         let itempage = new URL(`https://escapefromtarkov.fandom.com/wiki/${item}`);
@@ -111,8 +115,13 @@ const getItemPage = (item) => {
 }
 
 
+console.log("Starting")
+preloadFiles().then(() => {
+    let PORT = process.env.PORT || 80
+    app.listen(PORT);
+    console.log("Listening on "+PORT)
 
-preloadFiles().then(() => app.listen(process.env.PORT|80));
+});
 
 var Files = {};
 
