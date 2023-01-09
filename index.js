@@ -49,6 +49,7 @@ const getSearchResults = (query) => {
 
 //#region statics
 app.use('/favicon.ico', express.static('favicon.ico'));
+app.use('/images/bg.jpg', express.static('bg.jpg'));
 app.use('/script.js', express.static('script.js'));
 app.use('/404.html', express.static('404.html'));
 app.use('/style.css', express.static('style.css'));
@@ -81,16 +82,23 @@ const getItemPage = (item) => {
         axios.get(itempage.href, { validateStatus: false }).then(({ data }) => {
             let content = "";
             const root = parser.parse(data);
-
-            content += root.getElementById("firstHeading").outerHTML;
-            content += `<a href='${itempage.href}'>fandom</a><br />`;
+            content += `<a href='${itempage.href}'>${root.getElementById("firstHeading").outerHTML}</a><br />`;
 
             let quests = root.getElementById("Quests");
             if (quests) {
                 content += quests.parentNode.outerHTML;
                 content += quests.parentNode.nextElementSibling.outerHTML;
             } else {
-                content += "Not needed for quests."
+                content += "Not needed for quests.<br />"
+            }
+
+            let hideout = root.getElementById("Hideout");
+            if(hideout) {
+                content += hideout.parentNode.outerHTML;
+                content += hideout.parentNode.nextElementSibling.outerHTML;
+            }
+            else{
+                content += "Not needed for hideout.<br />"
             }
 
             let trading = root.getElementById("Trading");
@@ -98,7 +106,7 @@ const getItemPage = (item) => {
                 content += trading.parentNode.outerHTML;
                 content += trading.parentNode.nextElementSibling.outerHTML;
             } else {
-                content += "Not used in trading."
+                content += "Not used in trading.<br />"
             }
 
             let crafting = root.getElementById("Crafting");
@@ -106,7 +114,7 @@ const getItemPage = (item) => {
                 content += crafting.parentNode.outerHTML;
                 content += crafting.parentNode.nextElementSibling.outerHTML;
             } else {
-                content += "Not used for crafting."
+                content += "Not used for crafting.<br />"
             }
             cb(content);
         })

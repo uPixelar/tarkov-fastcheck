@@ -29,7 +29,7 @@ inputBox.onkeyup = (e) => {
         })
       })
     })
-  }, 500)
+  }, 200  )
 }
 
 inputBox.onfocus = (e) => {
